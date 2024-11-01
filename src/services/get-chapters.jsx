@@ -1,10 +1,13 @@
 //import axios from "axios"
+//import { config } from "dotenv";
+//config({path: "C:/Users/Andrew/Documents/Visual Studio Code/CS485/genai-website-project/.env.js"});
 
 class bibleService {
+
     static url = "https://api.scripture.api.bible/v1/bibles/01b29f4b342acc35-01"; 
     static options = {
         headers: {
-          "api-key": "102ca4501c01be682b27284f52683cc1"
+          "api-key": process.env.REACT_APP_API_KEY
         }
     };
 
