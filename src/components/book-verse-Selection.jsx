@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import bibleService from "../services/get-chapters";
 
-function Selector() {
+function Selector( { onValueChange, chapterNumber } ) {
     const [selectedValueBook, setSelectedValueBook] = useState('GEN'); 
     const [selectedValueChapter, setSelectedValueChapter] = useState("1");
     const [chaptersArray, setChaptersArray] = useState();
@@ -10,11 +10,13 @@ function Selector() {
 
     const handleChangeBook = (event) => {
         setSelectedValueBook(event.target.value);
+        onValueChange(event.target.options[event.target.selectedIndex].text, event.target.value);
     };
     
     const handleChangeChapter = (event) => {
         console.log("changing to", event.target.value);
         setSelectedValueChapter(event.target.value);
+        chapterNumber(event.target.value);
     };
 
     const getChapterCount = async (book) => {
@@ -77,6 +79,7 @@ const styles = {
     div: {
         padding: "20px",
         backgroundColor: "grey",
+        margin: "20px 20px 40px 20px"
     },
 
     selectLeft: {

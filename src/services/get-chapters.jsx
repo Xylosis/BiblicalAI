@@ -11,8 +11,8 @@ class bibleService {
         }
     };
 
-    async getChapterCount(book) {
-        const url = `${bibleService.url}/books/${book}/chapters`;
+    async getChapterCount(bookId) {
+        const url = `${bibleService.url}/books/${bookId}/chapters`;
         let jsonArray = {};
 
         await fetch(url, bibleService.options)
@@ -33,6 +33,19 @@ class bibleService {
         .then( data => { jsonArray = data; } )
         .catch( e => console.log(e) );
         console.log("jsonArray", jsonArray);
+
+        return jsonArray;
+    }
+
+    async getChapterContent(bookId, chapter) {
+        const url = `${bibleService.url}/chapters/${bookId}.${chapter}`;
+        let jsonArray = {};
+
+        await fetch(url, bibleService.options)
+        .then( res => res.json() )
+        .then( data => { jsonArray = data; } )
+        .catch( e => console.log(e) );
+        console.log("Content:", jsonArray.data.content);
 
         return jsonArray;
     }
