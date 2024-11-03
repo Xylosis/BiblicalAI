@@ -36,8 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-span.q:hover {
-  background-color: yellow; /* Change to the desired highlight color */
-  cursor: pointer; /* Optional: Changes cursor to indicate interactivity */
-}

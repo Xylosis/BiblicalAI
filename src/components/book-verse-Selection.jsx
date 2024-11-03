@@ -11,6 +11,8 @@ function Selector( { onValueChange, chapterNumber } ) {
     const handleChangeBook = (event) => {
         setSelectedValueBook(event.target.value);
         onValueChange(event.target.options[event.target.selectedIndex].text, event.target.value);
+        setSelectedValueChapter("1");
+        chapterNumber("1");
     };
     
     const handleChangeChapter = (event) => {

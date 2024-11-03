@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import Navvybar from './components/navbar';
 import Header from './components/header';
 import Selector from './components/book-verse-Selection';
 import ScriptureComponent from './components/display-chapter';
+import DarkThemeToggle from './components/dark-theme';
 
 import bibleService from "./services/get-chapters";
 import './scripture-styles.css';
@@ -54,6 +53,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <DarkThemeToggle />
       <Selector onValueChange={handleBookChange} chapterNumber={handleChapterChange}/>
       <headerText>{currBook} - {currChapter}</headerText>
       <ScriptureComponent scriptureHtml={chapterText} />

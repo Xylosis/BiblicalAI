@@ -15,9 +15,19 @@ code {
 
 biblicalText {
   font-family: ui-serif,Georgia,Cambria,Times New Roman,Times,serif;
+  color: white;
 }
 
 headerText {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+span.q:hover {
+  background-color: yellow; /* Change to the desired highlight color */
+  cursor: pointer; /* Optional: Changes cursor to indicate interactivity */
+}
+
+#scripture-container {
+  padding-top: 10px;
 }
