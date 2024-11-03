@@ -19,6 +19,7 @@ function App() {
   const [chapterText, setChapterText] = useState();
 
   function handleBookChange(book, bookId) {
+    setCurrChapter("1");
     setCurrBook(book);
     setCurrBookId(bookId);
   };
@@ -27,14 +28,28 @@ function App() {
     setCurrChapter(chapter);
   };
 
+  function fixChapterHtml (content) {
+    const reg = '<span class="q" id=".">.+?(?=<)';
+    let scriptureHtmlHolder = content.replaceAll("</span>", '</span><span class="q" id="$">');
+    // text = scriptureHtml.match(reg)[0];
+    // scriptureHtml = scriptureHtml.replace(text, `${text}</span>`);
+    let arr = [...scriptureHtmlHolder.matchAll(reg)];
+    for (let i = 0; i < arr.length; i++) {
+        let text = arr[i][0];
+        scriptureHtmlHolder = scriptureHtmlHolder.replace(text, `${text}</span>`);
+        scriptureHtmlHolder = scriptureHtmlHolder.replace('id="$"', `id="${currBook}-${currChapter}:${i+1}"`);
+    }
+    return scriptureHtmlHolder;
+  }
+
   useEffect( () => {
     async function chapterGetter() {
       const temp = await bibleService.getChapterContent(currBookId, currChapter);
-      setChapterText(temp.data.content);
-      console.log("chapter text", chapterText);
+      const fixedHtml = fixChapterHtml(temp.data.content);
+      setChapterText(fixedHtml);
     }
     chapterGetter()
-  }, [currChapter]);
+  }, [currChapter, currBook]);
 
   return (
     <div className="App">

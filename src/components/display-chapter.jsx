@@ -2,38 +2,26 @@ import React, { useEffect } from 'react';
 
 const ScriptureComponent = ({ scriptureHtml }) => {
     useEffect(() => {
-        const container = document.getElementById("scripture-container");
-      
-        const wrapVersesAndText = () => {
-          // Find all span.v elements in the container
-          const verseSpans = container.querySelectorAll(".v");
-          verseSpans.forEach((verseSpan) => {
-            console.log(verseSpan.nextElementSibling);
-            // Create a new span wrapper for the verse and its adjacent text
-            const wrapper = document.createElement("span");
-            wrapper.classList.add("verse-wrapper"); // Add class for potential styling
-      
-            // Insert the wrapper before the verseSpan
-            verseSpan.parentNode.insertBefore(wrapper, verseSpan);
-      
-            // Move the verseSpan and its next sibling (text node) into the wrapper
-            wrapper.appendChild(verseSpan);
-            let sibling = verseSpan.nextSibling;
-            while (sibling && sibling.nodeType === Node.TEXT_NODE) {
-              wrapper.appendChild(sibling);
-              sibling = wrapper.nextSibling;
-            }
-      
-            // Add the click event listener to the new wrapper
-            wrapper.addEventListener("click", () => {
-              const verseText = wrapper.textContent;
-              console.log(`Clicked verse text: ${verseText}`);
-            });
-          });
+        // Function to handle span clicks
+        const handleVerseClick = (event) => {
+            const verseText = event.target.textContent;
+            const verseNumber = event.target.getAttribute("id");
+            console.log(`Clicked verse: ${verseNumber} - ${verseText}`);
         };
-      
-        wrapVersesAndText();
-      }, [scriptureHtml]);
+    
+        // Select all span elements with the class 'v' and add event listeners
+        const verseElements = document.querySelectorAll("span.q");
+        verseElements.forEach((span) => {
+            span.addEventListener("click", handleVerseClick);
+        });
+    
+        // Clean up event listeners on component unmount
+        return () => {
+            verseElements.forEach((span) => {
+            span.removeEventListener("click", handleVerseClick);
+            });
+        };
+    }, [scriptureHtml]);
       
 
   return (
