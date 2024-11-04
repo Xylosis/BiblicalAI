@@ -117,12 +117,11 @@ function App() {
 
   }, [currChapter, currBook]);
 
-
-
   return (
     <div className="App">
       <Header />
       <button onClick={() => changeBackgroundColor(backgroundColor === "white" ? '#333333' : 'white')}>{backgroundColor === "white" ? 'Dark Mode' : "Light Mode"}</button>
+
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <headerText>{currBook} - {currChapter}</headerText>
       <ScriptureComponent scriptureHtml={chapterText}/>
