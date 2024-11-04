@@ -147,7 +147,7 @@ function App() {
       <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
       {gptResponse && <div id="GPT"><p id="gptText">ChatGPT Analysis of:<br />{`${currBook} ${currChapter}:${currVerse}`}<br /><br />{gptResponse}</p>
-      <button onClick={removeContent} class="close-btn">×</button>
+      <button onClick={removeContent} className="close-btn">×</button>
       </div>}
     </div>
   );

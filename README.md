@@ -1,4 +1,8 @@
-<<<<<<< HEAD
+# Biblical AI
+This is a website where you can read the bible with the assistance of ChatGPT to explain any verses you may find confusing.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,7 +73,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# BiblicalAI
-Generative AI + The Bible
->>>>>>> f84e15fe08380663f6d5a5fc4e911248a6c5b8a3
