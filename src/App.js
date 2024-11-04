@@ -117,10 +117,20 @@ function App() {
 
   }, [currChapter, currBook]);
 
+  const styles = {
+    darkmodebutton: {
+      marginTop : "10px",
+      backgroundColor: backgroundColor === "white" ? "grey" : "white",
+      color: backgroundColor === "white" ? "white" : "black",
+      padding: "5px 20px",
+      borderRadius: "10px",
+    }
+  }
+
   return (
     <div className="App">
       <Header />
-      <button onClick={() => changeBackgroundColor(backgroundColor === "white" ? '#333333' : 'white')}>{backgroundColor === "white" ? 'Dark Mode' : "Light Mode"}</button>
+      <button style={styles.darkmodebutton} onClick={() => changeBackgroundColor(backgroundColor === "white" ? '#333333' : 'white')}>{backgroundColor === "white" ? 'Dark Mode' : "Light Mode"}</button>
 
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <headerText>{currBook} - {currChapter}</headerText>
