@@ -20,6 +20,7 @@ function App() {
   const [booksList, setBooksList] = useState();
   const [chapterList, setChapterList] = useState();
   const [backgroundColor, setBackgroundColor] = useState('white');
+  const [gptResponse, setgptResponse] = useState("");
 
   const changeBackgroundColor = (newColor) => {
     setBackgroundColor(newColor);
@@ -117,6 +118,10 @@ function App() {
 
   }, [currChapter, currBook]);
 
+  useEffect( () => {
+    console.log("UPDATED GPT:", gptResponse);
+  }, [gptResponse])
+
   const styles = {
     darkmodebutton: {
       marginTop : "10px",
@@ -134,8 +139,9 @@ function App() {
 
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <headerText>{currBook} - {currChapter}</headerText>
-      <ScriptureComponent scriptureHtml={chapterText}/>
+      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
+      <div id="GPT">{gptResponse}</div>
     </div>
   );
 }
