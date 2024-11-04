@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import bibleService from "../services/get-chapters";
 
-function Selector( { onValueChange, chapterNumber } ) {
+function Selector( { onValueChange, chapterNumber, setAppChaptersList, setAppBooksList } ) {
     const [selectedValueBook, setSelectedValueBook] = useState('GEN'); 
     const [selectedValueChapter, setSelectedValueChapter] = useState("1");
     const [chaptersArray, setChaptersArray] = useState();
     const [booksArray, setBooksArray] = useState();
-    
 
     const handleChangeBook = (event) => {
         setSelectedValueBook(event.target.value);
@@ -26,8 +25,9 @@ function Selector( { onValueChange, chapterNumber } ) {
             //console.log("Result", result);
             setChaptersArray(result);
         });*/
-        
+
         setChaptersArray(data);
+        setAppChaptersList(data.data.slice(1));
         console.log("data", data);
         data.data.map((element) => {
             console.log(element)
@@ -45,6 +45,11 @@ function Selector( { onValueChange, chapterNumber } ) {
         async function booksGetter() {
             const temp = await bibleService.getBooks();
             setBooksArray(temp);
+            // let booksLst = [];
+            // for(let i = 0; i < temp.data.length; i++ ) {
+            //     booksLst.push(temp.data[i].id);
+            // }
+            setAppBooksList(temp.data);
             console.log("books array", booksArray);
         }
         booksGetter()
