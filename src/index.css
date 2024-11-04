@@ -31,3 +31,45 @@ span.v:hover, span.q:hover {
 #scripture-container {
   padding: 2rem 10rem;
 }
+
+#GPT {
+  position: fixed;
+  top: 3rem;
+  right: 3rem;
+  background-color: #333333;
+  color:white;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  max-width: 200px; /* Set your desired max width */
+  word-wrap: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Ensure long text wraps */
+  max-height: 265px; /* Adjust max height as needed */
+  overflow-y: auto;
+  opacity: 0.7;
+  border-radius: 1rem;
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+#GPT:hover {
+  opacity:1;
+  transform: scale(1.1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px; /* Adjust to position as needed */
+  right: 8px;
+  background: transparent;
+  color: white;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #f00; /* Changes color on hover */
+}

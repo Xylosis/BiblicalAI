@@ -21,6 +21,7 @@ function App() {
   const [chapterList, setChapterList] = useState();
   const [backgroundColor, setBackgroundColor] = useState('white');
   const [gptResponse, setgptResponse] = useState("");
+  const [currVerse, setCurrVerse] = useState("1");
 
   const changeBackgroundColor = (newColor) => {
     setBackgroundColor(newColor);
@@ -132,6 +133,10 @@ function App() {
     }
   }
 
+  const removeContent = () => {
+    setgptResponse("");
+  }
+
   return (
     <div className="App">
       <Header />
@@ -139,9 +144,11 @@ function App() {
 
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <headerText>{currBook} - {currChapter}</headerText>
-      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse}/>
+      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
-      <div id="GPT">{gptResponse}</div>
+      {gptResponse && <div id="GPT"><p id="gptText">ChatGPT Analysis of:<br />{`${currBook} ${currChapter}:${currVerse}`}<br /><br />{gptResponse}</p>
+      <button onClick={removeContent} class="close-btn">×</button>
+      </div>}
     </div>
   );
 }

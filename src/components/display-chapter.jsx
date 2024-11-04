@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import callGpt from '../services/call-gpt';
 
-const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT }) => {
+const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setVerse }) => {
     useEffect(() => {
         // Function to handle span clicks
         const handleVerseClick = async (event) => {
@@ -13,6 +13,7 @@ const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT }) =>
               
             const text = event.target.textContent;
             const verseNumber = (isCharacterNumber(text[0]) && isCharacterNumber(text[1])) ? `${text[0]}${text[1]}` : `${text[0]}`;
+            setVerse(verseNumber);
             const verseText = text.slice(verseNumber.length);
             const bookChapterFull = `${currBook} ${currChapter}:${verseNumber}`;
             console.log(`Clicked verse: ${bookChapterFull} - ${verseText}`);
