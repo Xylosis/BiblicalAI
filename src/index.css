@@ -22,11 +22,12 @@ headerText {
   line-height: 2.25rem;
 }
 
-span.q:hover {
+span.v:hover, span.q:hover {
   background-color: yellow; /* Change to the desired highlight color */
+  color:black;
   cursor: pointer; /* Optional: Changes cursor to indicate interactivity */
 }
 
 #scripture-container {
-  padding: 10px 10rem;
+  padding: 2rem 10rem;
 }

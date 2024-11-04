@@ -1,0 +1,40 @@
+/* General Styles for Select Menus */
+select {
+    appearance: none; /* Remove default dropdown arrow */
+    width: 100%; /* Full width */
+    max-width: 250px; /* Limit max width */
+    padding: 10px 12px;
+    font-size: 16px;
+    color: #ffffff; /* Text color */
+    background-color: #333333; /* Dark background color */
+    border: 1px solid #555555; /* Border color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    cursor: pointer; /* Pointer cursor */
+    transition: all 0.3s ease; /* Smooth transitions */
+  }
+  
+  /* Hover and Focus States */
+  select:hover, select:focus {
+    background-color: #444444; /* Darken background on hover */
+    border-color: #777777; /* Lighter border on hover */
+    outline: none; /* Remove outline */
+  }
+  
+  /* Custom Arrow Icon */
+  select::after {
+    content: "▼"; /* Custom arrow */
+    font-size: 10px;
+    color: #aaaaaa; /* Arrow color */
+    padding-left: 10px;
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+  }
+  
+  /* Option styles */
+  option {
+    color: #000; /* Option text color */
+    background-color: #ffffff; /* Option background color */
+  }
+  

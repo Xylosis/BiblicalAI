@@ -1,11 +1,18 @@
 import React, { useEffect } from 'react';
 
-const ScriptureComponent = ({ scriptureHtml }) => {
+const ScriptureComponent = ({ scriptureHtml}) => {
     useEffect(() => {
         // Function to handle span clicks
         const handleVerseClick = (event) => {
-            const verseText = event.target.textContent;
-            const verseNumber = event.target.getAttribute("id");
+
+            function isCharacterNumber(char) {
+                return !isNaN(parseInt(char, 10));
+              }
+              
+            const text = event.target.textContent;
+            const verseNumber = (isCharacterNumber(text[0]) && isCharacterNumber(text[1])) ? `${text[0]}${text[1]}` : `${text[0]}`;
+            const verseText = text.slice(verseNumber.length);
+
             console.log(`Clicked verse: ${verseNumber} - ${verseText}`);
         };
     

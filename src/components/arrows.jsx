@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ArrowButtons.css';
 
-const ArrowButtons = ({ onLeftClick, onRightClick }) => {
+const ArrowButtons = ({ onLeftClick, onRightClick, aBackgroundColor }) => {
   const [leftActive, setLeftActive] = useState(false);
   const [rightActive, setRightActive] = useState(false);
 

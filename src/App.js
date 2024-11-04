@@ -19,6 +19,20 @@ function App() {
   const [chapterText, setChapterText] = useState();
   const [booksList, setBooksList] = useState();
   const [chapterList, setChapterList] = useState();
+  const [backgroundColor, setBackgroundColor] = useState('white');
+
+  const changeBackgroundColor = (newColor) => {
+    setBackgroundColor(newColor);
+  };
+
+  useEffect(() => {
+      document.body.style.backgroundColor = backgroundColor;
+      if (backgroundColor === 'white') {
+        document.body.style.color = 'black';
+      } else {
+        document.body.style.color = 'white';
+      }
+  }, [backgroundColor]);
 
   function handleBookChange(book, bookId) {
     setCurrChapter("1");
@@ -28,6 +42,9 @@ function App() {
 
   function handleChapterChange(chapter) {
     setCurrChapter(chapter);
+    console.log("CHANGING CHAPTER")
+    const element = document.getElementById("chapterDropDown");
+    element.value = chapter;
   };
 
   const handleLeftClick = async () => {
@@ -75,15 +92,17 @@ function App() {
   };
 
   function fixChapterHtml (content) {
-    const reg = '<span class="q" id=".">.+?(?=<)';
-    let scriptureHtmlHolder = content.replaceAll("</span>", '</span><span class="q" id="$">');
+    //const reg = '<span data-number="[0-9]?[0-9]" data-sid="... [0-9]?[0-9]:[0-9]?[0-9]" class="v">[0-9]?[0-9]<\/span>.+?(?=<)';
+    const reg = /<span data-number="\d+"[\s\S]*?(?=<span data-number="\d+"|<\/p>)/g;
+    //let scriptureHtmlHolder = content.replaceAll("</span>", '</span><span class="q" id="$">'); OLD
+    let scriptureHtmlHolder = content;//NEW
     // text = scriptureHtml.match(reg)[0];
     // scriptureHtml = scriptureHtml.replace(text, `${text}</span>`);
     let arr = [...scriptureHtmlHolder.matchAll(reg)];
     for (let i = 0; i < arr.length; i++) {
         let text = arr[i][0];
-        scriptureHtmlHolder = scriptureHtmlHolder.replace(text, `${text}</span>`);
-        scriptureHtmlHolder = scriptureHtmlHolder.replace('id="$"', `id="${currBook}-${currChapter}:${i+1}"`);
+        scriptureHtmlHolder = scriptureHtmlHolder.replace(text, `<span class="q" id="${currBook} ${currChapter}:${i+1}">${text}</span>`); //TO GO OLD, REMOVE FRONT SPAN IN REPLACE
+        //scriptureHtmlHolder = scriptureHtmlHolder.replace('id="$"', `id="${currBook}-${currChapter}:${i+1}"`);
     }
     return scriptureHtmlHolder;
   }
@@ -95,15 +114,18 @@ function App() {
       setChapterText(fixedHtml);
     }
     chapterGetter()
+
   }, [currChapter, currBook]);
+
+
 
   return (
     <div className="App">
       <Header />
-      <DarkThemeToggle />
-      <Selector onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
+      <button onClick={() => changeBackgroundColor(backgroundColor === "white" ? '#333333' : 'white')}>{backgroundColor === "white" ? 'Dark Mode' : "Light Mode"}</button>
+      <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <headerText>{currBook} - {currChapter}</headerText>
-      <ScriptureComponent scriptureHtml={chapterText} />
+      <ScriptureComponent scriptureHtml={chapterText}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
     </div>
   );

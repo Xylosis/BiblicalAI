@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import bibleService from "../services/get-chapters";
+import './dropdown.css';
 
-function Selector( { onValueChange, chapterNumber, setAppChaptersList, setAppBooksList } ) {
+function Selector( { currBookId, currChapter, onValueChange, chapterNumber, setAppChaptersList, setAppBooksList } ) {
     const [selectedValueBook, setSelectedValueBook] = useState('GEN'); 
     const [selectedValueChapter, setSelectedValueChapter] = useState("1");
     const [chaptersArray, setChaptersArray] = useState();
@@ -36,6 +37,12 @@ function Selector( { onValueChange, chapterNumber, setAppChaptersList, setAppBoo
         return data;
     };
 
+    useEffect(() => {
+        setSelectedValueBook(currBookId);
+        console.log(currBookId);
+        setSelectedValueChapter(currChapter);
+    }, [currBookId, currChapter])
+
     //getChapterCount("GEN")
     useEffect(() => {
         getChapterCount(selectedValueBook);
@@ -57,9 +64,9 @@ function Selector( { onValueChange, chapterNumber, setAppChaptersList, setAppBoo
 
     return (
         <div style={styles.div}>
-            <select style={styles.selectLeft} value={selectedValueBook} onChange={handleChangeBook}>
+            <select style={styles.selectLeft} class="dropdown" id="bookDropDown" value={selectedValueBook} onChange={handleChangeBook}>
             {
-                booksArray?.data?.map((element) => (
+                booksArray?.data?.map((element, index) => (
                     <option key={element.id} value={element.id}>
                         {element.name}
                     </option>
@@ -67,7 +74,7 @@ function Selector( { onValueChange, chapterNumber, setAppChaptersList, setAppBoo
             }
             </select>
 
-            <select value={selectedValueChapter} onChange={handleChangeChapter}>
+            <select value={selectedValueChapter} class="dropdown" id="chapterDropDown" onChange={handleChangeChapter}>
             {
                 chaptersArray?.data?.map((element) => (
                 (element.number !== "intro") ? 
@@ -92,6 +99,7 @@ const styles = {
     selectLeft: {
         marginRight: "40px"
     },
+
 
 
 }
