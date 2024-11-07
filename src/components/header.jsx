@@ -14,7 +14,7 @@ function Header() {
       </a>
 
       {/* Centered Text */}
-      <h1 style={styles.title}>Artifically Bible</h1>
+      <h1 style={styles.title}>Biblical AI</h1>
 
     </header>
   );
