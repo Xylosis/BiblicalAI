@@ -7,8 +7,10 @@ import ScriptureComponent from './components/display-chapter';
 import DarkThemeToggle from './components/dark-theme';
 
 import bibleService from "./services/get-chapters";
+import callGPT from './services/call-gpt';
 import './scripture-styles.css';
 import ArrowButtons from './components/arrows';
+import icon from './imgs/chatbot-icon-2.png'
 
 //https://reactbibleapp.vercel.app/
 
@@ -22,6 +24,7 @@ function App() {
   const [backgroundColor, setBackgroundColor] = useState('white');
   const [gptResponse, setgptResponse] = useState("");
   const [currVerse, setCurrVerse] = useState("1");
+  const [viewingChapterAnalysis, setViewingChapterAnalysis] = useState(false);
 
   const changeBackgroundColor = (newColor) => {
     setBackgroundColor(newColor);
@@ -133,9 +136,30 @@ function App() {
     }
   }
 
+  const callGPTChapter = async () => {
+    setViewingChapterAnalysis(true);
+    await callGPT.getOpenAICompletion(`${currBook} - ${currChapter}`, null, true)
+    .then(data => setgptResponse(data.choices[0].message.content))
+    .catch(error => console.error(error));
+  }
+
   const removeContent = () => {
     setgptResponse("");
   }
+
+  function toggleChat() {
+    const chatContainer = document.getElementById("chatContainer");
+    const toggleButton = document.getElementById('toggleButton');
+    chatContainer.classList.toggle("active");
+    if (chatContainer.classList.contains('active')) {
+      console.log('The chat container is active.');
+      toggleButton.textContent = '▼';
+    } else {
+      console.log('The chat container is not active.');
+      toggleButton.textContent = '▲'
+    }
+  }  
+  
 
   return (
     <div className="App">
@@ -143,12 +167,23 @@ function App() {
       <button style={styles.darkmodebutton} onClick={() => changeBackgroundColor(backgroundColor === "white" ? '#333333' : 'white')}>{backgroundColor === "white" ? 'Dark Mode' : "Light Mode"}</button>
 
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
-      <headerText>{currBook} - {currChapter}</headerText>
-      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse}/>
+      <span className="w" onClick={callGPTChapter}><headerText>{currBook} - {currChapter}</headerText></span>
+      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
-      {gptResponse && <div id="GPT"><p id="gptText">ChatGPT Analysis of:<br />{`${currBook} ${currChapter}:${currVerse}`}<br /><br />{gptResponse}</p>
+      {/*gptResponse && <div id="GPT"><p id="gptText">ChatGPT Analysis of:<br />{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}<br /><br />{gptResponse}</p>
       <button onClick={removeContent} className="close-btn">×</button>
-      </div>}
+      </div>*/}
+      <div id="chatContainer" class="chat-container">
+        <div id="chatHeader" class="chat-header" onClick={toggleChat}>
+          Biblical AI Bot
+          <button id="toggleButton" class="close-btnn">−</button>
+        </div>
+        <div id="chatContent" class="chat-content">
+        <img src={icon} alt="Bot Icon" class="bot-icon" />
+        <p id="chattingText">Biblican AI Bot:</p>
+        <p id="gptText"><strong>{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}</strong><br /><br /><p id="gptResponseText">{gptResponse}</p></p>
+        </div>
+      </div>
     </div>
   );
 }

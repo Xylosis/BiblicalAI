@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 
 import callGpt from '../services/call-gpt';
 
-const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setVerse }) => {
+const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setVerse, setViewing }) => {
     useEffect(() => {
         // Function to handle span clicks
         const handleVerseClick = async (event) => {
-
+            setViewing(false);
             function isCharacterNumber(char) {
                 return !isNaN(parseInt(char, 10));
               }
@@ -17,7 +17,7 @@ const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setV
             const verseText = text.slice(verseNumber.length);
             const bookChapterFull = `${currBook} ${currChapter}:${verseNumber}`;
             console.log(`Clicked verse: ${bookChapterFull} - ${verseText}`);
-            await callGpt.getOpenAICompletion(bookChapterFull, verseText)
+            await callGpt.getOpenAICompletion(bookChapterFull, verseText, false)
             .then(data => setGPT(data.choices[0].message.content))
             .catch(error => console.error(error));
 

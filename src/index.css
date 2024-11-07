@@ -22,10 +22,15 @@ headerText {
   line-height: 2.25rem;
 }
 
-span.v:hover, span.q:hover {
+span.v:hover, span.q:hover, span.w:hover {
   background-color: yellow; /* Change to the desired highlight color */
   color:black;
   cursor: pointer; /* Optional: Changes cursor to indicate interactivity */
+}
+
+span.w {
+  margin-top: 10px;
+  padding-top: 10px;
 }
 
 #scripture-container {
@@ -74,4 +79,82 @@ span.v:hover, span.q:hover {
 
 .close-btn:hover {
   color: #f00; /* Changes color on hover */
+}
+/*-----------------------------*/
+/* Main container */
+/* Main container */
+.chat-container {
+  position: fixed;
+  bottom: -0.1rem;
+  right: 20px; /* Adjust if needed */
+  width: 300px;
+  max-height: 400px;
+  background-color: #333;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease-in-out;
+  transform: translateY(calc(100% - 40px)); /* Shows 40px of the tab */
+}
+
+/* When active, bring it fully into view */
+.chat-container.active {
+  transform: translateY(0);
+}
+
+/* Header */
+.chat-header {
+  background-color: #444;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+/* Content area */
+.chat-content {
+  padding: 5px 20px 20px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+/* Close button */
+.close-btnn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.bot-icon {
+  position: relative;
+  top: 1rem;
+  left: -7rem;
+  width: 2rem;  /* Adjust size as needed */
+  height: 2rem;
+  /* Optionally add border radius for circular icon */
+  border-radius: 50%;
+}
+
+.close-btnn:hover {
+  color: #ddd;
+}
+
+#chattingText {
+  position: relative;
+  top: -1.5rem;
+  left: -1.8rem;
+  margin-bottom: -1.5rem;
+}
+
+#gptResponseText {
+  white-space: pre-line;
+  margin-top: 0.25rem;
 }
