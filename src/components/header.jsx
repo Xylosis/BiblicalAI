@@ -43,6 +43,7 @@ const styles = {
     flex: 1,
     textAlign: 'center',
     fontSize: '1.5rem',
+    paddingRight: '4.5rem',
   },
   signature: {
     textAlign: 'right',

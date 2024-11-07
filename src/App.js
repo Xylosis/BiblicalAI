@@ -23,6 +23,7 @@ function App() {
   const [chapterList, setChapterList] = useState();
   const [backgroundColor, setBackgroundColor] = useState('white');
   const [gptResponse, setgptResponse] = useState("");
+  const [chatStarted, setChatStarted] = useState(false);
   const [currVerse, setCurrVerse] = useState("1");
   const [viewingChapterAnalysis, setViewingChapterAnalysis] = useState(false);
 
@@ -124,6 +125,14 @@ function App() {
 
   useEffect( () => {
     console.log("UPDATED GPT:", gptResponse);
+    if(!chatStarted && gptResponse ) {
+      setChatStarted(true);
+    }
+    const chatContainer = document.getElementById("chatContainer");
+    if(chatStarted && !chatContainer.classList.contains('active')) {
+      console.log("TOGGLING");
+      toggleChat();
+    }
   }, [gptResponse])
 
   const styles = {
@@ -159,7 +168,10 @@ function App() {
       toggleButton.textContent = '▲'
     }
   }  
-  
+
+  useEffect( () => {
+    document.title = "Biblical AI";
+  }, [])
 
   return (
     <div className="App">
@@ -168,20 +180,23 @@ function App() {
 
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <span className="w" onClick={callGPTChapter}><headerText>{currBook} - {currChapter}</headerText></span>
-      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis}/>
+      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis} setChatStarted={setChatStarted}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
       {/*gptResponse && <div id="GPT"><p id="gptText">ChatGPT Analysis of:<br />{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}<br /><br />{gptResponse}</p>
       <button onClick={removeContent} className="close-btn">×</button>
       </div>*/}
       <div id="chatContainer" class="chat-container">
         <div id="chatHeader" class="chat-header" onClick={toggleChat}>
-          Biblical AI Bot
+          Biblical AI Chat
           <button id="toggleButton" class="close-btnn">−</button>
         </div>
         <div id="chatContent" class="chat-content">
         <img src={icon} alt="Bot Icon" class="bot-icon" />
-        <p id="chattingText">Biblican AI Bot:</p>
+        <p id="chattingText">Biblical AI Bot:</p>
+        {gptResponse ? 
         <p id="gptText"><strong>{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}</strong><br /><br /><p id="gptResponseText">{gptResponse}</p></p>
+        : null
+        }
         </div>
       </div>
     </div>
