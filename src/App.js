@@ -5,6 +5,7 @@ import Header from './components/header';
 import Selector from './components/book-verse-Selection';
 import ScriptureComponent from './components/display-chapter';
 import DarkThemeToggle from './components/dark-theme';
+import { Commet, FourSquare, Riple } from "react-loading-indicators"
 
 import bibleService from "./services/get-chapters";
 import callGPT from './services/call-gpt';
@@ -147,6 +148,7 @@ function App() {
 
   const callGPTChapter = async () => {
     setViewingChapterAnalysis(true);
+    setgptResponse("");
     await callGPT.getOpenAICompletion(`${currBook} - ${currChapter}`, null, true)
     .then(data => setgptResponse(data.choices[0].message.content))
     .catch(error => console.error(error));
@@ -192,10 +194,10 @@ function App() {
         </div>
         <div id="chatContent" class="chat-content">
         <img src={icon} alt="Bot Icon" class="bot-icon" />
-        <p id="chattingText">Biblical AI Bot:</p>
-        {gptResponse ? 
-        <p id="gptText"><strong>{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}</strong><br /><br /><p id="gptResponseText">{gptResponse}</p></p>
-        : null
+        <p id="chattingText">Biblical AI Bot:</p> <br />
+        {chatStarted ? 
+        gptResponse ? <p id="gptText"><strong>{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}</strong><br /><br /><p id="gptResponseText">{gptResponse}</p></p>
+        : <Riple color="grey" size="medium" text="" textColor="" /> : null
         }
         </div>
       </div>

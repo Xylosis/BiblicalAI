@@ -93,7 +93,8 @@ const styles = {
     div: {
         padding: "20px",
         backgroundColor: "grey",
-        margin: "20px 20px 40px 20px"
+        margin: "20px 20px 40px 20px",
+        borderRadius: "1rem",
     },
 
     selectLeft: {

@@ -7,6 +7,7 @@ const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setV
         // Function to handle span clicks
         const handleVerseClick = async (event) => {
             setViewing(false);
+            setGPT("");
             function isCharacterNumber(char) {
                 return !isNaN(parseInt(char, 10));
               }
