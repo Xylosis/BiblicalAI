@@ -182,7 +182,7 @@ function App() {
 
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <span className="w" onClick={callGPTChapter}><headerText>{currBook} - {currChapter}</headerText></span>
-      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis} setChatStarted={setChatStarted}/>
+      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis} setChatStarted={setChatStarted} toggleFunc={toggleChat}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
       {/*gptResponse && <div id="GPT"><p id="gptText">ChatGPT Analysis of:<br />{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}<br /><br />{gptResponse}</p>
       <button onClick={removeContent} className="close-btn">×</button>
