@@ -4,8 +4,8 @@ import './App.css';
 import Header from './components/header';
 import Selector from './components/book-verse-Selection';
 import ScriptureComponent from './components/display-chapter';
-import DarkThemeToggle from './components/dark-theme';
-import { Commet, FourSquare, Riple } from "react-loading-indicators"
+import { Riple } from "react-loading-indicators"
+import PopupForm from './components/popup-form';
 
 import bibleService from "./services/get-chapters";
 import callGPT from './services/call-gpt';
@@ -27,6 +27,8 @@ function App() {
   const [chatStarted, setChatStarted] = useState(false);
   const [currVerse, setCurrVerse] = useState("1");
   const [viewingChapterAnalysis, setViewingChapterAnalysis] = useState(false);
+  const [religionPreference, setReligionPreference] = useState("Christian");
+  const [popupIsOpen, setPopUpIsOpen] = useState(false);
 
   const changeBackgroundColor = (newColor) => {
     setBackgroundColor(newColor);
@@ -34,10 +36,13 @@ function App() {
 
   useEffect(() => {
       document.body.style.backgroundColor = backgroundColor;
+      const popUp = document.getElementById("popupContent");
       if (backgroundColor === 'white') {
         document.body.style.color = 'black';
+        popUp.style.backgroundColor = 'white'
       } else {
         document.body.style.color = 'white';
+        popUp.style.backgroundColor = '#333333'
       }
   }, [backgroundColor]);
 
@@ -139,17 +144,33 @@ function App() {
   const styles = {
     darkmodebutton: {
       marginTop : "10px",
-      backgroundColor: backgroundColor === "white" ? "grey" : "white",
+      backgroundColor: backgroundColor === "white" ? "grey" : "rgba(245,245,245,0.8)",
       color: backgroundColor === "white" ? "white" : "black",
       padding: "5px 20px",
       borderRadius: "10px",
+      cursor: 'pointer',
+    },
+
+    religionPickerButton: {
+      marginTop : "10px",
+      backgroundColor: backgroundColor === "white" ? "grey" : "rgba(245,245,245,0.8)",
+      color: backgroundColor === "white" ? "white" : "black",
+      padding: "5px 20px",
+      borderRadius: "10px",
+      cursor: 'pointer',
+      marginRight: '2rem',
     }
   }
 
   const callGPTChapter = async () => {
     setViewingChapterAnalysis(true);
     setgptResponse("");
-    await callGPT.getOpenAICompletion(`${currBook} - ${currChapter}`, null, true)
+    if (!chatStarted){
+      setChatStarted(true);
+    }
+    toggleChat();
+    console.log("RELIGION PREFERENCE:::::", religionPreference);
+    await callGPT.getOpenAICompletion(`${currBook} - ${currChapter}`, null, true, religionPreference)
     .then(data => setgptResponse(data.choices[0].message.content))
     .catch(error => console.error(error));
   }
@@ -173,16 +194,29 @@ function App() {
 
   useEffect( () => {
     document.title = "Biblical AI";
+
+    const timeout = setTimeout(() => {
+      toggleChat();
+    }, 20000);
+
+    const timeout2 = setTimeout( () => {
+      toggleChat();
+    }, 3000)
+
+    return () => {clearTimeout(timeout2); clearTimeout(timeout) };
   }, [])
 
   return (
     <div className="App">
+      <PopupForm religionPreference={religionPreference} setReligionPreference={setReligionPreference} popupIsOpen={popupIsOpen} setPopUpIsOpen={setPopUpIsOpen}/>
       <Header />
+      <button style={styles.religionPickerButton} onClick={() => popupIsOpen ? null : setPopUpIsOpen(true)}>Religion Selector</button>
       <button style={styles.darkmodebutton} onClick={() => changeBackgroundColor(backgroundColor === "white" ? '#333333' : 'white')}>{backgroundColor === "white" ? 'Dark Mode' : "Light Mode"}</button>
-
+      <br />
+      <p id="religionTeller">Current Religion Interpretation Selected: {religionPreference}</p>
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <span className="w" onClick={callGPTChapter}><headerText>{currBook} - {currChapter}</headerText></span>
-      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis} setChatStarted={setChatStarted} toggleFunc={toggleChat}/>
+      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis} setChatStarted={setChatStarted} toggleFunc={toggleChat} religiousPreference={religionPreference}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
       {/*gptResponse && <div id="GPT"><p id="gptText">ChatGPT Analysis of:<br />{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}<br /><br />{gptResponse}</p>
       <button onClick={removeContent} className="close-btn">×</button>
@@ -197,7 +231,7 @@ function App() {
         <p id="chattingText">Biblical AI Bot:</p> <br />
         {chatStarted ? 
         gptResponse ? <p id="gptText"><strong>{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}</strong><br /><br /><p id="gptResponseText">{gptResponse}</p></p>
-        : <Riple color="grey" size="medium" text="" textColor="" /> : null
+        : <Riple color="grey" size="medium" text="" textColor="" /> : <p style={{marginTop: '0rem'}}>Hi, I'm the Biblical AI Bot! <br /> <br /> Please select a religion to focus my interpretations on! <br />This can be changed through the 'Religion Selector' button up top anytime in the future.<br /> <br /> Click on a verse or chapter header to learn more about it from me. <br /> <br /> To flip to the next page of the bible, please use the arrow buttons on both sides of the screen. <br /> <br /> You can also use the drop down to go to different books or chapters of the bible. </p>
         }
         </div>
       </div>

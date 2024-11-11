@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import callGpt from '../services/call-gpt';
 
-const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setVerse, setViewing, setChatStarted, toggleFunc }) => {
+const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setVerse, setViewing, setChatStarted, toggleFunc, religiousPreference }) => {
     useEffect(() => {
         // Function to handle span clicks
         const handleVerseClick = async (event) => {
@@ -19,7 +19,8 @@ const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setV
             const verseText = text.slice(verseNumber.length);
             const bookChapterFull = `${currBook} ${currChapter}:${verseNumber}`;
             console.log(`Clicked verse: ${bookChapterFull} - ${verseText}`);
-            await callGpt.getOpenAICompletion(bookChapterFull, verseText, false)
+            console.log("RELIGION PREFERENCE:::::", religiousPreference);
+            await callGpt.getOpenAICompletion(bookChapterFull, verseText, false, religiousPreference)
             .then(data => setGPT(data.choices[0].message.content))
             .catch(error => console.error(error));
 
@@ -37,7 +38,7 @@ const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setV
             span.removeEventListener("click", handleVerseClick);
             });
         };
-    }, [scriptureHtml]);
+    }, [scriptureHtml, religiousPreference]);
       
 
   return (

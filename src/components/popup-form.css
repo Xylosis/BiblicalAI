@@ -1,0 +1,87 @@
+/* Popup container styles */
+.popup {
+
+  }
+  
+  /* Show popup when open */
+  .popup.open {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Styling for the popup header */
+  #popupHeader {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #f0f0f0;
+    text-align: left;
+  }
+  
+  /* Form styles */
+  #popupForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: space-between;
+  }
+  
+  /* Input radio buttons */
+  #popupForm input[type="radio"] {
+    display: none; /* Hide radio buttons */
+  }
+  
+  /* Labels for each radio button */
+  #popupForm label {
+    padding: 12px 5%;
+    font-size: 12px;
+    background-color: #444;
+    border-radius: 4px;
+    color: whitesmoke;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  /* Highlight the selected option */
+  #popupForm input[type="radio"]:checked + label {
+    background-color: #f8c02d; /* Highlight color */
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Submit button styles */
+  #popupForm button[type="submit"] {
+    background-color: #f8c02d;
+    color: #333;
+    border: none;
+    padding: 8px 14px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    display: block;
+    width: 25%;
+    margin: 10px auto;
+    text-align: center;
+  }
+  
+  /* Hover effect for submit button */
+  #popupForm button[type="submit"]:hover {
+    background-color: #e0b123;
+  }
+  
+  /* Close button styling */
+  #formButton {
+    cursor: pointer;
+    background: transparent;
+    right: -15rem;
+    position: relative;
+    background-color: #444;
+    color: whitesmoke;
+  }
+  
+  #formButton:hover {
+    color: #fff;
+  }
+  
