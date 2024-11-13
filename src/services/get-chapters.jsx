@@ -49,6 +49,8 @@ class bibleService {
 
         return jsonArray;
     }
+
+    /* CALL FOR SPECIFIC VERSE SEARCH https://api.scripture.api.bible/v1/bibles/06125adad2d5898a-01/search?query=John%203:16-19&offset=0 */ 
 }
 
 export default new bibleService;

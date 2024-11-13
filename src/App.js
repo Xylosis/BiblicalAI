@@ -29,6 +29,7 @@ function App() {
   const [viewingChapterAnalysis, setViewingChapterAnalysis] = useState(false);
   const [religionPreference, setReligionPreference] = useState("Christian");
   const [popupIsOpen, setPopUpIsOpen] = useState(false);
+  const [chatIsOpen, setChatIsOpen] = useState(true);
 
   const changeBackgroundColor = (newColor) => {
     setBackgroundColor(newColor);
@@ -190,12 +191,14 @@ function App() {
       console.log('The chat container is not active.');
       toggleButton.textContent = '▲'
     }
+    console.log(chatIsOpen);
   }  
 
   useEffect( () => {
     document.title = "Biblical AI";
 
     const timeout = setTimeout(() => {
+      setChatIsOpen(false);
       toggleChat();
     }, 25000);
 
@@ -216,7 +219,7 @@ function App() {
       <p id="religionTeller">Current Religion Interpretation Selected: {religionPreference}</p>
       <Selector currBookId={currBookId} currChapter={currChapter} onValueChange={handleBookChange} chapterNumber={handleChapterChange} setAppChaptersList={setChapterList} setAppBooksList={setBooksList}/>
       <span className="w" onClick={callGPTChapter}><headerText>{currBook} - {currChapter}</headerText></span>
-      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis} setChatStarted={setChatStarted} toggleFunc={toggleChat} religiousPreference={religionPreference}/>
+      <ScriptureComponent scriptureHtml={chapterText} currBook={currBook} currChapter={currChapter} setGPT={setgptResponse} setVerse={setCurrVerse} setViewing={setViewingChapterAnalysis} setChatStarted={setChatStarted} toggleFunc={toggleChat} religiousPreference={religionPreference} chatIsOpen={chatIsOpen}/>
       <ArrowButtons onLeftClick={handleLeftClick} onRightClick={handleRightClick} />
       {/*gptResponse && <div id="GPT"><p id="gptText">ChatGPT Analysis of:<br />{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}<br /><br />{gptResponse}</p>
       <button onClick={removeContent} className="close-btn">×</button>

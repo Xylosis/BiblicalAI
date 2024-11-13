@@ -2,12 +2,15 @@ import React, { useEffect } from 'react';
 
 import callGpt from '../services/call-gpt';
 
-const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setVerse, setViewing, setChatStarted, toggleFunc, religiousPreference }) => {
+const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setVerse, setViewing, setChatStarted, toggleFunc, religiousPreference, chatIsOpen }) => {
     useEffect(() => {
         // Function to handle span clicks
         const handleVerseClick = async (event) => {
             setChatStarted(true);
-            toggleFunc();
+            console.log("Chat open:", chatIsOpen);
+            if(!chatIsOpen) {
+              toggleFunc();
+            }
             setViewing(false);
             setGPT("");
             function isCharacterNumber(char) {
