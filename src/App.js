@@ -197,11 +197,11 @@ function App() {
 
     const timeout = setTimeout(() => {
       toggleChat();
-    }, 20000);
+    }, 25000);
 
     const timeout2 = setTimeout( () => {
       toggleChat();
-    }, 3000)
+    }, 6000)
 
     return () => {clearTimeout(timeout2); clearTimeout(timeout) };
   }, [])
@@ -231,7 +231,7 @@ function App() {
         <p id="chattingText">Biblical AI Bot:</p> <br />
         {chatStarted ? 
         gptResponse ? <p id="gptText"><strong>{`${currBook} ${currChapter}`}{viewingChapterAnalysis ? '' : `:${currVerse}`}</strong><br /><br /><p id="gptResponseText">{gptResponse}</p></p>
-        : <Riple color="grey" size="medium" text="" textColor="" /> : <p style={{marginTop: '0rem'}}>Hi, I'm the Biblical AI Bot! <br /> <br /> Please select a religion to focus my interpretations on! <br />This can be changed through the 'Religion Selector' button up top anytime in the future.<br /> <br /> Click on a verse or chapter header to learn more about it from me. <br /> <br /> To flip to the next page of the bible, please use the arrow buttons on both sides of the screen. <br /> <br /> You can also use the drop down to go to different books or chapters of the bible. </p>
+        : <Riple color="grey" size="medium" text="" textColor="" /> : <p style={{marginTop: '0rem'}}>Hi, I'm the Biblical AI Bot! <br /> <br /> Please select a religion to focus my interpretations on! <br />This can be changed through the 'Religion Selector' button up top anytime in the future.<br /> <br /> Click on a verse or chapter header to learn more about it from me. <br /> <br /> To flip to the next page of the bible, please use the arrow buttons on both sides of the screen. <br /> <br /> You can also use the drop down to go to different books or chapters of the bible. <br /> <br /> <i><small>Powered by OpenAI's GPT 4o</small></i> </p>
         }
         </div>
       </div>
