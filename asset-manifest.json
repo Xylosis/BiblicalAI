@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/BiblicalAI/static/css/main.015e32f7.css",
+    "main.js": "/BiblicalAI/static/js/main.6564e2a5.js",
+    "static/js/453.08487e63.chunk.js": "/BiblicalAI/static/js/453.08487e63.chunk.js",
+    "static/media/bible-earth.png": "/BiblicalAI/static/media/bible-earth.0586b91b64742e362989.png",
+    "static/media/chatbot-icon-2.png": "/BiblicalAI/static/media/chatbot-icon-2.46f660b42c27baac34ee.png",
+    "index.html": "/BiblicalAI/index.html",
+    "main.015e32f7.css.map": "/BiblicalAI/static/css/main.015e32f7.css.map",
+    "main.6564e2a5.js.map": "/BiblicalAI/static/js/main.6564e2a5.js.map",
+    "453.08487e63.chunk.js.map": "/BiblicalAI/static/js/453.08487e63.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.015e32f7.css",
+    "static/js/main.6564e2a5.js"
+  ]
+}
