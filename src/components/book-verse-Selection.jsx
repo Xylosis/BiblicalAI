@@ -30,7 +30,7 @@ function Selector( { currBookId, currChapter, onValueChange, chapterNumber, setA
         setChaptersArray(data);
         setAppChaptersList(data.data.slice(1));
         console.log("data", data);
-        data.data.map((element) => {
+        data?.data?.map((element) => {
             console.log(element)
         });
         console.log("array", chaptersArray);
