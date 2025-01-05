@@ -16,7 +16,6 @@ function Selector( { currBookId, currChapter, onValueChange, chapterNumber, setA
     };
     
     const handleChangeChapter = (event) => {
-        console.log("changing to", event.target.value);
         setSelectedValueChapter(event.target.value);
         chapterNumber(event.target.value);
     };
@@ -29,17 +28,11 @@ function Selector( { currBookId, currChapter, onValueChange, chapterNumber, setA
 
         setChaptersArray(data);
         setAppChaptersList(data.data.slice(1));
-        console.log("data", data);
-        data?.data?.map((element) => {
-            console.log(element)
-        });
-        console.log("array", chaptersArray);
         return data;
     };
 
     useEffect(() => {
         setSelectedValueBook(currBookId);
-        console.log(currBookId);
         setSelectedValueChapter(currChapter);
     }, [currBookId, currChapter])
 
@@ -57,7 +50,6 @@ function Selector( { currBookId, currChapter, onValueChange, chapterNumber, setA
             //     booksLst.push(temp.data[i].id);
             // }
             setAppBooksList(temp.data);
-            console.log("books array", booksArray);
         }
         booksGetter()
     }, []);

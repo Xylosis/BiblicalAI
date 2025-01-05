@@ -15,7 +15,6 @@ class callGPT {
 
         fullPrompt = fullPrompt.replaceAll("???", religiousPreference);
 
-        console.log("PROMPT!!!", fullPrompt);
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
           headers: {

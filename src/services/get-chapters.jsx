@@ -19,7 +19,6 @@ class bibleService {
         .then( res => res.json() )
         .then( data => { jsonArray = data; } )
         .catch( e => console.log(e) );
-        console.log("jsonArray", jsonArray);
 
         return jsonArray;
     }
@@ -32,7 +31,6 @@ class bibleService {
         .then( res => res.json() )
         .then( data => { jsonArray = data; } )
         .catch( e => console.log(e) );
-        console.log("jsonArray", jsonArray);
 
         return jsonArray;
     }
@@ -45,7 +43,6 @@ class bibleService {
         .then( res => res.json() )
         .then( data => { jsonArray = data; } )
         .catch( e => console.log(e) );
-        console.log("Content:", jsonArray.data.content);
 
         return jsonArray;
     }

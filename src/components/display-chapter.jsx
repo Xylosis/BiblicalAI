@@ -7,7 +7,6 @@ const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setV
         // Function to handle span clicks
         const handleVerseClick = async (event) => {
             setChatStarted(true);
-            console.log("Chat open:", chatIsOpen);
             if(!chatIsOpen) {
               toggleFunc();
             }
@@ -21,8 +20,6 @@ const ScriptureComponent = ({ scriptureHtml, currBook, currChapter, setGPT, setV
             setVerse(verseNumber);
             const verseText = text.slice(verseNumber.length);
             const bookChapterFull = `${currBook} ${currChapter}:${verseNumber}`;
-            console.log(`Clicked verse: ${bookChapterFull} - ${verseText}`);
-            console.log("RELIGION PREFERENCE:::::", religiousPreference);
             await callGpt.getOpenAICompletion(bookChapterFull, verseText, false, religiousPreference)
             .then(data => setGPT(data.choices[0].message.content))
             .catch(error => console.error(error));

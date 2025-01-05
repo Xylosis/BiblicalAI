@@ -33,6 +33,7 @@ function App() {
 
   const changeBackgroundColor = (newColor) => {
     setBackgroundColor(newColor);
+    console.log("new console log");
   };
 
   useEffect(() => {
@@ -55,16 +56,13 @@ function App() {
 
   function handleChapterChange(chapter) {
     setCurrChapter(chapter);
-    console.log("CHANGING CHAPTER")
     const element = document.getElementById("chapterDropDown");
     element.value = chapter;
   };
 
   const handleLeftClick = async () => {
-    console.log("Left arrow clicked");
-    console.log(chapterList);
     if (currBookId === "GEN" && currChapter === "1"){
-      console.log("Already at start of book");
+      alert("Already at start of book");
     } else {
       const intChapter = parseInt(currChapter);
       if( intChapter > 1 ) {
@@ -84,10 +82,8 @@ function App() {
   };
 
   const handleRightClick = () => {
-    console.log("Right arrow clicked");
-    console.log(booksList);
     if(currBookId === "REV" && currChapter === "22") {
-      console.log("Already at end of book");
+      alert("Already at end of book");
     } else {
       const intChapter = parseInt(currChapter);
       if (intChapter < chapterList.length) {
@@ -131,13 +127,11 @@ function App() {
   }, [currChapter, currBook]);
 
   useEffect( () => {
-    console.log("UPDATED GPT:", gptResponse);
     if(!chatStarted && gptResponse ) {
       setChatStarted(true);
     }
     const chatContainer = document.getElementById("chatContainer");
     if(chatStarted && !chatContainer.classList.contains('active')) {
-      console.log("TOGGLING");
       toggleChat();
     }
   }, [gptResponse])
@@ -170,7 +164,6 @@ function App() {
       setChatStarted(true);
     }
     toggleChat();
-    console.log("RELIGION PREFERENCE:::::", religionPreference);
     await callGPT.getOpenAICompletion(`${currBook} - ${currChapter}`, null, true, religionPreference)
     .then(data => setgptResponse(data.choices[0].message.content))
     .catch(error => console.error(error));
@@ -185,13 +178,10 @@ function App() {
     const toggleButton = document.getElementById('toggleButton');
     chatContainer.classList.toggle("active");
     if (chatContainer.classList.contains('active')) {
-      console.log('The chat container is active.');
       toggleButton.textContent = '▼';
     } else {
-      console.log('The chat container is not active.');
       toggleButton.textContent = '▲'
     }
-    console.log(chatIsOpen);
   }  
 
   useEffect( () => {
